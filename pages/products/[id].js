@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { CartContext } from '@/context/CartContext'
 import { getAllProducts, getSingleProduct } from '@/lib/shopify'
 
@@ -8,6 +8,7 @@ export default function Product({ product }) {
   const { src, altText } = product.images.edges[0].node
   const { amount } = product.priceRange.minVariantPrice
 
+  const [quantity, setQuantity] = useState(1)
   const { addToCart } = useContext(CartContext)
 
   const handleClick = () => {
@@ -36,10 +37,28 @@ export default function Product({ product }) {
             <p className='text-slate-900 text-xl font-normal leading-[1.8rem] mb-6'>
               {description}
             </p>
+            <div className='my-4 flex items-center gap-2'>
+              <label htmlFor="qty" className='text-base font-medium'>
+                Quantity:
+              </label>
+              <input
+                type="number"
+                id='qty'
+                name='qty'
+                min='1'
+                max='10'
+                className='p-1 focus:outline-none rounded border border-slate-300'
+                onChange={(e) => setQuantity(e.target.value)}
+                value={quantity}
+              />
+            </div>
             <p className='text-slate-900 text-lg font-medium'>
-              Price: ${amount}
+              Price: ${parseFloat((amount * quantity).toFixed(2))}
             </p>
-            <button className='bg-[#0284c7] text-white text-sm rounded px-4 py-3 mt-4' onClick={handleClick}>
+            <button
+              className='bg-[#0284c7] text-white text-sm rounded px-4 py-3 mt-4'
+              onClick={handleClick}
+            >
               Add to cart
             </button>
           </div>
