@@ -3,13 +3,15 @@ import { useContext } from "react"
 import { CartContext } from "@/context/CartContext"
 
 export default function Navbar() {
-  const { cart } = useContext(CartContext)
+  let { cart } = useContext(CartContext)
 
   return (
     <nav className='bg-gray-100  mb-8'>
       <div className='max-w-7xl mx-auto p-4 flex items-center justify-between'>
-        <span className='text-2xl font-bold'>
-          <Link href='/'>Next-Shopify</Link>
+        <span className='text-2xl font-bold bg-blue-300 px-2 py-1 rounded'>
+          <Link href='/'>
+            Next-Shopify
+          </Link>
         </span>
         <ul className='flex items-center gap-4 text-blue-500'>
           <li>

@@ -12,6 +12,7 @@ export default function Product({ product }) {
   const { addToCart } = useContext(CartContext)
 
   const handleClick = () => {
+    product.quantity = quantity
     addToCart(product)
   }
 

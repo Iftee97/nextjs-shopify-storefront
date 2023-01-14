@@ -4,12 +4,10 @@ export const CartContext = createContext()
 
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([])
-  // const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []) // get cart from local storage for persistence
 
   const addToCart = (product) => {
     const newCart = [...cart, product]
     setCart(newCart)
-    localStorage.setItem('cart', JSON.stringify(newCart)) // add cart to local storage for persistence
   }
 
   const removeFromCart = (product) => {
