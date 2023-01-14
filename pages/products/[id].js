@@ -39,7 +39,7 @@ export default function Product({ product }) {
             <p className='text-slate-900 text-lg font-medium'>
               Price: ${amount}
             </p>
-            <button className='bg-[#0284c7] p-4 text-white text-sm rounded mt-4' onClick={handleClick}>
+            <button className='bg-[#0284c7] text-white text-sm rounded px-4 py-3 mt-4' onClick={handleClick}>
               Add to cart
             </button>
           </div>
