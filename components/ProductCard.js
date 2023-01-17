@@ -13,8 +13,12 @@ export default function ProductCard({ product }) {
             <img src={src} alt={altText || `${title} image`} />
           </div>
         </div>
-        <h3 className="mt-4 text-lg font-medium text-gray-900">{title}</h3>
-        <p className="mt-1 text-sm text-gray-700">${price}</p>
+        <h3 className="mt-4 text-lg font-medium text-gray-900">
+          {title}
+        </h3>
+        <p className="mt-1 text-sm text-gray-700">
+          ${price}
+        </p>
       </span>
     </Link>
   )

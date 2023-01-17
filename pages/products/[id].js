@@ -1,25 +1,29 @@
 import Head from 'next/head'
 import { useContext, useState } from 'react'
 import { CartContext } from '@/context/CartContext'
-import { getAllProducts, getSingleProduct } from '@/lib/shopify'
+import { getAllProducts, getSingleProduct, createCart } from '@/lib/shopify'
 
 export default function Product({ product }) {
-  const { title, description } = product
-  const { src, altText } = product.images.edges[0].node
-  const { amount } = product.priceRange.minVariantPrice
+  console.log('product:', product)
 
   const [quantity, setQuantity] = useState(1)
   const { addToCart } = useContext(CartContext)
 
-  const handleClick = () => {
+  const { title, description } = product
+  const { src, altText } = product.images.edges[0].node
+  const { amount } = product.priceRange.minVariantPrice
+  const merchandiseId = product.variants.edges[0].node.id
+
+  const handleClick = async () => {
     product.quantity = quantity
+    console.log('added to cart:', product)
     addToCart(product)
   }
 
   return (
     <>
       <Head>
-        <title>Next-Shopify | {title}</title>
+        <title>Next-Shopify | Product</title>
         <meta name="description" content="Next.js Shopify Storefront API" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -71,7 +75,7 @@ export default function Product({ product }) {
 
 export async function getStaticPaths() {
   const products = await getAllProducts()
-  const paths = products.map(product => ({
+  const paths = products.map((product) => ({
     params: {
       id: product.node.handle
     }
@@ -85,7 +89,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const product = await getSingleProduct(params.id)
-  console.log('product:', product)
 
   return {
     props: {
